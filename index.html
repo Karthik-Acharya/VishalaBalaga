@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Family</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f3f3;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+        section {
+            margin: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #4CAF50;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .gallery img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .family-tree {
+            text-align: center;
+        }
+        .admin-panel {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Our Family Page</h1>
+    </header>
+
+    <section id="upcoming-events">
+        <h2>Upcoming Events</h2>
+        <ul id="events-list">
+            <!-- Events will be dynamically added here -->
+        </ul>
+        <button onclick="addEvent()">Add Event</button>
+    </section>
+
+    <section id="family-tree">
+        <h2>Family Tree</h2>
+        <div class="family-tree">
+            <p>Family tree visualization will go here.</p>
+            <!-- Admin-only feature -->
+            <button onclick="addMember()">Add Family Member</button>
+        </div>
+    </section>
+
+    <section id="recent-images">
+        <h2>Recent Images</h2>
+        <div class="gallery" id="image-gallery">
+            <!-- Images will be dynamically added here -->
+        </div>
+        <input type="file" id="image-upload" accept="image/*" />
+        <button onclick="uploadImage()">Upload Image</button>
+    </section>
+
+    <script>
+        // Function to add an event
+        function addEvent() {
+            const event = prompt("Enter event details:");
+            if (event) {
+                const eventsList = document.getElementById('events-list');
+                const li = document.createElement('li');
+                li.textContent = event;
+                eventsList.appendChild(li);
+            }
+        }
+
+        // Function to add a family member (Admin only)
+        function addMember() {
+            const member = prompt("Enter new family member details (Admin Only):");
+            if (member) {
+                alert(`${member} has been added to the family tree.`);
+            }
+        }
+
+        // Function to upload an image
+        function uploadImage() {
+            const fileInput = document.getElementById('image-upload');
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    document.getElementById('image-gallery').appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                alert("Please select an image to upload.");
+            }
+        }
+    </script>
+</body>
+</html>
